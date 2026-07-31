@@ -1,8 +1,13 @@
 import React from 'react'
 import LightRays from './LightRays';
+import Shuffle from './Shuffle';
 import TextType from './TextType';
 
 function Home() {
+  const handleShuffleComplete = () => {
+    console.log('Shuffle animation complete!');
+  };
+
   return (
     <div className='min-h-screen flex items-center justify-center text-white px-6 relative overflow-hidden'>
       {/* LightRays Background */}
@@ -21,19 +26,40 @@ function Home() {
       </div>
 
       {/* Content */}
-      <div className='max-w-4xl w-full text-center relative -top-50'>
-        {/* Name with typing animation */}
-        <h1 className='text-5xl md:text-8xl lg:text-9xl font-bold text-white tracking-widest'>
+      <div className='max-w-4xl w-full text-center relative z-10'>
+        {/* Name with Shuffle animation */}
+        <h1>
+          <Shuffle
+            text="Aditya"
+            shuffleDirection="right"
+            duration={0.35}
+            animationMode="evenodd"
+            shuffleTimes={1}
+            ease="power3.out"
+            stagger={0.03}
+            threshold={0.1}
+            triggerOnce={true}
+            triggerOnHover={true}
+            respectReducedMotion={true}
+            tag="span"
+            textAlign="center"
+            onShuffleComplete={handleShuffleComplete}
+          />
+        </h1>
+
+        {/* TextType Component */}
+        <div className='mt-12'>
           <TextType
-            text={["Aditya"]}
+            text={["Full Stack Developer", "UI/UX Enthusiast", "Creative Coder"]}
             typingSpeed={75}
             pauseDuration={2000}
             showCursor={true}
             cursorCharacter="|"
-            loop={false}
+            loop={true}
             as="span"
+            className="text-lg md:text-2xl font-semibold text-white/80"
           />
-        </h1>
+        </div>
       </div>
     </div>
   );
