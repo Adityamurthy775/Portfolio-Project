@@ -38,14 +38,15 @@ const internships = [
     title: 'Data visualization',
     company: 'Excelerate',
     year: '2025',
-    summary: 'Completed a Data Visualization Internship at Excelerate Global, where I cleaned and analyzed datasets using Python, Excel, and SQL. Performed exploratory data analysis (EDA) and created interactive dashboards in Looker Studio to present business insights effectively.'
+    summary: 'Completed a Data Visualization Internship at Excelerate Global, where I cleaned and analyzed datasets using Python, Excel, and SQL. Performed exploratory data analysis (EDA) and created interactive dashboards in Looker Studio to present business insights effectively.',
+    link:'/Excelerate.pdf',
   },
   {
     title: 'Data Analyst',
     company: 'Eduskills/Google',
     year: '2026',
     summary: 'Completed a Google Cloud Data Analytics Internship through AICTE Edunet Foundation, gaining hands-on experience with GCP, Python, Pandas, and SQL. Conducted EDA and developed Looker Studio dashboards to support data-driven decision-making.',
-    link: null, // Add URL if applicable
+    link: '/Data Analytics Virtual Internship.pdf',
   },
 ]
 
