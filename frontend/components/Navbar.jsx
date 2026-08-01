@@ -1,192 +1,72 @@
-import { useState, useEffect } from 'react';
-import BorderGlow from './BorderGlow';
+import React from 'react'
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [cursorAngle, setCursorAngle] = useState(0);
+function Navbar() {
+  const links = ['About', 'Work', 'Contact']
 
-  useEffect(() => {
-    // Animate the cursor angle continuously
-    let animationFrame;
-    let angle = 0;
-
-    const animate = () => {
-      angle = (angle + 1) % 360;
-      setCursorAngle(angle);
-      animationFrame = requestAnimationFrame(animate);
-    };
-
-    animationFrame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrame);
-  }, []);
-
-  const navItems = [
-    { label: 'Home', href: '#home' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Contact', href: '#contact' },
-  ];
+  const handleNavClick = (label, event) => {
+    // Smooth-scroll to the section whose id matches the label (lowercased).
+    // No-op if the section doesn't exist yet, so it's safe to wire up before content lands.
+    const target = document.getElementById(label.toLowerCase())
+    if (target) {
+      event.preventDefault()
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
 
   return (
-    <nav className='fixed top-0 w-full z-50 px-6 py-4'>
-      <div
-        className='relative grid isolate border border-white/15 w-full'
-        style={{
-          background: 'rgba(18, 15, 23, 0.8)',
-          borderRadius: '16px',
-          transform: 'translate3d(0, 0, 0.01px)',
-          boxShadow: 'rgba(0,0,0,0.1) 0 1px 2px, rgba(0,0,0,0.1) 0 2px 4px, rgba(0,0,0,0.1) 0 4px 8px, rgba(0,0,0,0.1) 0 8px 16px, rgba(0,0,0,0.1) 0 16px 32px, rgba(0,0,0,0.1) 0 32px 64px',
-        }}
+    <nav className='mx-auto mt-6 flex w-full max-w-6xl items-center justify-between gap-6 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-white shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-md'>
+      {/* Logo */}
+      <a
+        href='#'
+        className='group flex items-center gap-3 shrink-0'
       >
-        {/* Animated gradient border */}
-        <div
-          className='absolute inset-0 rounded-[16px] -z-[1]'
-          style={{
-            border: '1px solid transparent',
-            background: [
-              'linear-gradient(rgba(18, 15, 23, 0.8) 0 100%) padding-box',
-              'conic-gradient(from ' + cursorAngle + 'deg, #F97316 0%, #7C3AED 33%, #06B6D4 66%, #F97316 100%) border-box',
-            ].join(', '),
-            transition: 'none',
-          }}
-        />
+        <span className='flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-orange-700 text-sm font-black text-white shadow-md transition-transform duration-300 ease-out group-hover:scale-105'>
+          AM
+        </span>
+        <span className='hidden sm:inline text-base font-semibold tracking-wide'>
+          Aditya Murthi
+        </span>
+      </a>
 
-        {/* Animated outer glow */}
-        <span
-          className='absolute pointer-events-none z-[1] rounded-[16px]'
-          style={{
-            inset: '-60px',
-            background: `conic-gradient(from ${cursorAngle}deg, #F97316 0%, #7C3AED 33%, #06B6D4 66%, #F97316 100%)`,
-            opacity: 0.3,
-            filter: 'blur(20px)',
-            transition: 'none',
-          }}
-        />
+      {/* Email pill */}
+      <a
+        href='mailto:adityamurthi570@gmail.com'
+        className='group hidden md:flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-white/80 transition-all duration-300 ease- hover:border-orange-700 hover:bg-white hover:text-orange-700'
+      >
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          strokeWidth='2'
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          className='h-4 w-4 transition-colors duration-300 ease-out group-hover:text-orange-700'
+        >
+          <rect x='3' y='5' width='18' height='14' rx='2' />
+          <path d='m3 7 9 6 9-6' />
+        </svg>
+        <span>adityamurthi570@gmail.com</span>
+      </a>
 
-        {/* Inner glow fill */}
-        <div
-          className='absolute inset-0 rounded-[16px] -z-[1]'
-          style={{
-            background: `conic-gradient(from ${cursorAngle}deg, #F97316 0%, #7C3AED 33%, #06B6D4 66%, #F97316 100%)`,
-            opacity: 0.15,
-            maskImage: 'radial-gradient(ellipse at center, transparent 40%, black 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse at center, transparent 40%, black 100%)',
-            transition: 'none',
-          }}
-        />
-
-        <div className='flex items-center justify-between px-8 py-4 relative z-[2]'>
-          {/* Left side - Name */}
-          <div className='flex items-center'>
-            <h1 className='text-2xl md:text-3xl font-bold text-white tracking-widest'>
-              Aditya
-            </h1>
-          </div>
-
-          {/* Desktop Navigation - Center */}
-          <div className='hidden md:flex items-center gap-8'>
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className='text-white/80 hover:text-white transition-colors duration-300 font-medium'
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
-
-          {/* Right side - Social Links */}
-          <div className='flex items-center gap-4'>
-            {/* LinkedIn */}
-            <a
-              href='https://linkedin.com'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='text-white/80 hover:text-white transition-colors duration-300'
-              aria-label='LinkedIn'
-            >
-              <svg
-                className='w-6 h-6'
-                fill='currentColor'
-                viewBox='0 0 24 24'
-              >
-                <path d='M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z' />
-              </svg>
-            </a>
-
-            {/* Email */}
-            <a
-              href='mailto:your.email@example.com'
-              className='text-white/80 hover:text-white transition-colors duration-300'
-              aria-label='Email'
-            >
-              <svg
-                className='w-6 h-6'
-                fill='none'
-                stroke='currentColor'
-                viewBox='0 0 24 24'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth={2}
-                  d='M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'
-                />
-              </svg>
-            </a>
-
-            {/* Mobile Menu Button */}
+      {/* Nav links */}
+      <ul className='flex items-center gap-2 list-none'>
+        {links.map((label) => (
+          <li key={label}>
             <button
-              onClick={() => setIsOpen(!isOpen)}
-              className='md:hidden text-white/80 hover:text-white transition-colors'
-              aria-label='Toggle menu'
+              onClick={(event) => handleNavClick(label, event)}
+              className='group relative overflow-hidden rounded-full border border-white/15 px-4 py-2 text-sm font-semibold transition-all duration-300 ease-out hover:border-orange-700 active:scale-95'
             >
-              <svg
-                className='w-6 h-6'
-                fill='none'
-                stroke='currentColor'
-                viewBox='0 0 24 24'
-              >
-                {isOpen ? (
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth={2}
-                    d='M6 18L18 6M6 6l12 12'
-                  />
-                ) : (
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth={2}
-                    d='M4 6h16M4 12h16M4 18h16'
-                  />
-                )}
-              </svg>
+              <span className='absolute inset-0 -translate-x-full bg-white transition-transform duration-300 ease-out group-hover:translate-x-0' />
+              <span className='relative z-10 transition-colors duration-300 ease-out group-hover:text-orange-700'>
+                {label}
+              </span>
             </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation Menu */}
-        {isOpen && (
-          <div className='md:hidden border-t border-white/10 px-8 py-4 relative z-[2]'>
-            <div className='flex flex-col gap-4'>
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className='text-white/80 hover:text-white transition-colors duration-300 font-medium'
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
+          </li>
+        ))}
+      </ul>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
