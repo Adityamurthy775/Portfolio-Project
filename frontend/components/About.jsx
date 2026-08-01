@@ -373,7 +373,7 @@ function About() {
   return (
     <section
       id='about'
-      className='relative w-full bg-black text-white py-24 md:py-32 overflow-hidden'
+      className='relative w-full bg-black text-white py-16 md:py-20 overflow-hidden'
     >
       {/* Marquee ticker — fades up from below when it scrolls into view.
           `viewport={{ once: false, amount: 0.3 }}` means the animation

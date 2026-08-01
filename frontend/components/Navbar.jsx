@@ -1,14 +1,17 @@
 import React from 'react'
 
 function Navbar() {
-  const links = ['About', 'Work', 'Contact']
+  const links = ['About', 'Work']
+  const sectionIds = {
+    About: 'about',
+    Work: 'work',
+  }
 
   const handleNavClick = (label, event) => {
-    // Smooth-scroll to the section whose id matches the label (lowercased).
-    // No-op if the section doesn't exist yet, so it's safe to wire up before content lands.
-    const target = document.getElementById(label.toLowerCase())
+    event.preventDefault()
+    const targetId = sectionIds[label] || label.toLowerCase()
+    const target = document.getElementById(targetId)
     if (target) {
-      event.preventDefault()
       target.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }

@@ -19,7 +19,7 @@ function Home() {
   }
 
   return (
-    <div className='flex flex-col text-white relative -mt-2'>
+    <div className='flex flex-col text-white relative'>
       {/* Navbar pinned to the top */}
       <div className='relative z-10 w-full'>
         <Navbar/>
@@ -137,34 +137,21 @@ function Home() {
               </a>
             </motion.div>
 
-            {/* Tech Stack Pills */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.4 }}
-              className='mt-12 flex flex-wrap items-center justify-center gap-3'
-            >
-              {['React', 'Python', 'Node.js', 'MongoDB', 'ML/AI'].map((tech, index) => (
-                <span
-                  key={tech}
-                  className='px-4 py-1.5 text-xs md:text-sm text-white/70 border border-white/20 rounded-full hover:border-orange-500/50 hover:text-orange-400 transition-colors duration-300'
-                >
-                  {tech}
-                </span>
-              ))}
-            </motion.div>
+
           </div>
         </div>
 
         {/* Scroll Indicator */}
-        <div className='absolute bottom-8 left-1/2 -translate-x-1/2 z-10'>
+        <div>
           <ScrollIndicator/>
         </div>
       </div>
 
       <About/>
       <Work/>
-      <Footer/>
+      <div id='footer'>
+        <Footer/>
+      </div>
     </div>
   );
 }
